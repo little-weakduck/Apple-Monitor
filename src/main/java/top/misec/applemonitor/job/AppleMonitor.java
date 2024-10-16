@@ -45,17 +45,17 @@ public class AppleMonitor {
     }
 
 
-    public void pushAll(String content, List<PushConfig> pushConfigs) {
+    public void pushAll(String content, List<PushConfig> pushConfigs,String product) {
 
         pushConfigs.forEach(push -> {
 
             if (StrUtil.isAllNotEmpty(push.getBarkPushUrl(), push.getBarkPushToken())) {
                 BarkPush barkPush = new BarkPush(push.getBarkPushUrl(), push.getBarkPushToken());
                 PushDetails pushDetails= PushDetails.builder()
-                        .title("苹果商店监控")
+                        .title(product)
                         .body(content)
-                        .category("苹果商店监控")
-                        .group("Apple Monitor")
+                        .category("product")
+                        .group(product)
                         .sound(StrUtil.isEmpty(push.getBarkPushSound()) ? SoundEnum.GLASS.getSoundName() : push.getBarkPushSound())
                         .build();
                 barkPush.simpleWithResp(pushDetails);
@@ -127,19 +127,10 @@ public class AppleMonitor {
                 String productStatus = partsAvailability.getJSONObject(deviceItem.getDeviceCode()).getString("pickupSearchQuote");
 
 
-                String strTemp = "门店:{},型号:{},状态:{}";
+                String strTemp = "门店:{},状态:{}";
 
-                String content = StrUtil.format(strTemp, storeNames, deviceName, productStatus);
-
-                if (judgingStoreInventory(storeJson, deviceItem.getDeviceCode())) {
-                    JSONObject retailStore = storeJson.getJSONObject("retailStore");
-                    content += buildPickupInformation(retailStore);
-                    log.info(content);
-
-                    pushAll(content, deviceItem.getPushConfigs());
-
-
-                }
+                String content = StrUtil.format(strTemp, storeNames, productStatus);
+                pushAll(content, deviceItem.getPushConfigs(),deviceName);
                 log.info(content);
             });
 
@@ -163,21 +154,6 @@ public class AppleMonitor {
         String status = partsAvailability.getJSONObject(productCode).getString("pickupDisplay");
         return "available".equals(status);
 
-    }
-
-    /**
-     * build pickup information
-     *
-     * @param retailStore retailStore
-     * @return pickup message
-     */
-    private String buildPickupInformation(JSONObject retailStore) {
-        String distanceWithUnit = retailStore.getString("distanceWithUnit");
-        String twoLineAddress = retailStore.getJSONObject("address").getString("twoLineAddress");
-        String daytimePhone = retailStore.getJSONObject("address").getString("daytimePhone");
-        String lo = CONFIG.getAppleTaskConfig().getLocation();
-        String messageTemplate = "\n取货地址:{},电话:{},距离{}:{}";
-        return StrUtil.format(messageTemplate, twoLineAddress.replace("\n", " "), daytimePhone, lo, distanceWithUnit);
     }
 
     private boolean filterStore(JSONObject storeInfo, DeviceItem deviceItem) {

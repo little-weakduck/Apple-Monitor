@@ -1,18 +1,17 @@
 {
   "appleTaskConfig": {
     "cronExpressions": "*/12 * * * * ?",
-    "country": "CN",
-    "location": "广东 深圳 南山区",
+    "country": "CN-HK",
+    "location": "中環",
     "deviceCodeList": [
+      // lyc的
       {
-        "deviceCode": "MYTM3CH/A",
-        "storeWhiteList": [
-          "益田假日"
-        ],
+        // 沙漠256
+        "deviceCode": "MYLV3ZA/A",
         "pushConfigs": [
           {
-            "barkPushUrl": "",
-            "barkPushToken": "",
+            "barkPushUrl": "https://api.day.app/push",
+            "barkPushToken": "S5BCcUoipiceAwCfhSRBbD",
             "barkPushSound": "multiwayinvitation.caf",
             "feishuBotWebhooks": "",
             "feishuBotSecret": ""
@@ -20,20 +19,44 @@
         ]
       },
       {
-        "deviceCode": "MYTP3CH/A",
-        "storeWhiteList": [
-          "益田假日"
-        ],
+        // 白色256
+        "deviceCode": "MYLU3ZA/A",
         "pushConfigs": [
           {
-            "barkPushUrl": "",
-            "barkPushToken": "",
-            "barkPushSound": "glass.caf",
+            "barkPushUrl": "https://api.day.app/push",
+            "barkPushToken": "S5BCcUoipiceAwCfhSRBbD",
+            "barkPushSound": "multiwayinvitation.caf",
             "feishuBotWebhooks": "",
             "feishuBotSecret": ""
           }
         ]
       }
+      //   {
+      //     // 沙漠256
+      //     "deviceCode": "MYLV3ZA/A",
+      //     "pushConfigs": [
+      //       {
+      //         "barkPushUrl": "https://api.day.app/push",
+      //         "barkPushToken": "S5BCcUoipiceAwCfhSRBbD",
+      //         "barkPushSound": "multiwayinvitation.caf",
+      //         "feishuBotWebhooks": "",
+      //         "feishuBotSecret": ""
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     // 白色256
+      //     "deviceCode": "MYLU3ZA/A",
+      //     "pushConfigs": [
+      //       {
+      //         "barkPushUrl": "https://api.day.app/push",
+      //         "barkPushToken": "S5BCcUoipiceAwCfhSRBbD",
+      //         "barkPushSound": "multiwayinvitation.caf",
+      //         "feishuBotWebhooks": "",
+      //         "feishuBotSecret": ""
+      //       }
+      //     ]
+      //   }
     ]
   }
 }
